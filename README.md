@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [<img src="https://img.shields.io/travis/playframework/play-java-starter-example.svg"/>](https://travis-ci.org/playframework/play-java-starter-example)
 
 # play-java-starter-example
@@ -51,3 +52,9 @@ There are several demonstration files available in this template.
 - ExampleFilter.java
 
   A simple filter that adds a header to every response.
+=======
+# TwitterApp
+
+This project demonstrate how to create a datatable with users using play framework for java web development,
+Bootstrap CSS, JQuery, MongoDB and DataTables JavaScript plugin.
+>>>>>>> 0e065f6af25aa2e0262e2ef410fc735ee5b5ebe1
