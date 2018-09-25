@@ -1,0 +1,140 @@
+@()
+@main("Twitter Test") {
+<div class="container">
+    <div class="jumbotron">
+        <h3> Twitter App :</h3>
+        <button data-toggle="modal" data-target="#squarespaceModal" class="btn btn-primary">
+            <i class="glyphicon glyphicon-plus"></i>Tweet</button>
+    </div>
+
+    <table align="center" id="example" class="table table-striped table-bordered table-hover" cellspacing="0" width="80%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Tweet</th>
+            <th>Update</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+        <!--<tfoot>-->
+        <!--<tr>-->
+            <!--<th>Id</th>-->
+            <!--<th>Name</th>-->
+            <!--<th>Tweet</th>-->
+            <!--<th>Update</th>-->
+        <!--</tr>-->
+        <!--</tfoot>-->
+    </table>
+</div>
+
+
+<!--Add Tweet modal-->
+<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class = "modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss = "modal">
+                    <span aria-hidden="true">*</span>
+                    <span class="sr-only">Close</span> </button>
+                    <h3 class="modal-title" id="lineModalLabel">Add Tweet</h3>
+            </div>
+            <form method="POST" action="@routes.UsersController.save()"  enctype="multipart/form-data">
+                <div class="modal-body">
+
+                    <!--<input type="hidden"  name="id" id="id">-->
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text"  class="form-control"  name="name" placeholder="Enter Your Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tweet">Tweet</label>
+                        <input type="text"  class="form-control"  name="tweet" placeholder="What's happening?" required>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" btn-dismiss="modal" role="button">Close</button>
+
+                        </div>
+
+                        <div class="btn-group" role="group">
+                            <button type="submit" class="btn btn-default btn-hover-green" data-action="save" role="button">Submit</button>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Update Tweet modal-->
+<div class="modal fade" id="squarespaceUpdateModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class = "modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss = "modal">
+                    <span aria-hidden="true">*</span>
+                    <span class="sr-only">Close</span> </button>
+                <h3 class="modal-title" id="lineModalLabel">Update Tweet</h3>
+            </div>
+            <form id="submitForm" >
+                <div class="modal-body">
+
+                    <!--<input type="hidden"  name="id" id="id">-->
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text"  class="form-control"  name="name" placeholder="Enter Your Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tweet">Tweet</label>
+                        <input type="text"  class="form-control"  name="tweet" placeholder="What's happening?" required>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                        <div class="btn-group" role="group">
+                            <button id="close" type="button" class="btn btn-default" btn-dismiss="modal" role="button">Close</button>
+
+                        </div>
+
+                        <div class="btn-group" role="group">
+                            <div id= "submitButton" class="btn btn-default btn-hover-green">Submit</div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+}

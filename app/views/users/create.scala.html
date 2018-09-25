@@ -1,0 +1,23 @@
+@(userForm: Form [User])
+@import helper._
+
+<html>
+    <head>
+        <title> Create User </title>
+    </head>
+    <body>
+            <h1> Create Usereeee </h1>
+            @helper.form(action = helper.CSRF(routes.UsersController.save())){
+                @helper.inputText(userForm("id"))
+                @helper.inputText(userForm("name"))
+                @helper.inputText(userForm("tweet"))
+
+            <input type="submit" value="Create User">
+
+
+            }
+
+    </body>
+
+</html>
+
