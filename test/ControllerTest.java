@@ -1,31 +1,34 @@
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import controllers.DataTableObject;
 import controllers.UsersController;
 import models.User;
+import models.UserCommandActor;
 import models.UserQueryActor;
+import org.bson.Document;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mock;
-import play.mvc.Http;
 import play.mvc.Result;
+import play.test.WithServer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static play.mvc.Http.Status.*;
-import static play.test.Helpers.*;
+import static play.libs.Json.toJson;
+import static play.mvc.Http.Status.OK;
+import static play.test.Helpers.contentAsString;
 
-public class ControllerTest extends FunctioTest {
-    @Mock private MongoDatabase database;
+public class ControllerTest{
 
     @Test
-    public void testIndex(){
+    public void testIndex() {
         Result result = new UsersController().index();
-//        Http.Response response = GET("/");
         assertEquals(OK, result.status());
         assertEquals("text/html", result.contentType().get());
         assertEquals("utf-8", result.charset().get());
@@ -33,28 +36,7 @@ public class ControllerTest extends FunctioTest {
     }
 
 
-    @Test
-    public void testListAllUsers(){
-
-        UsersController usersController = mock(UsersController.class);
-        List<User> userList = new ArrayList<User>();
-        DataTableObject dataTableObject = new DataTableObject();
-        dataTableObject.setData(userList);
-        given(usersController.ListAll()).willReturn(userList);
-
-        mock.
-        // Test Service
-        UserService userService = new UserService(repositoryMock);
-        User user = new User(1, "Johnny Utah");
-        assertTrue(userService.isAdmin(user));
-        verify(repositoryMock).findUserRoles(user);
 
 
 
-
-
-
-
-
-    }
 }

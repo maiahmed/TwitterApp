@@ -1,26 +1,18 @@
 package models;
 
 
-import java.util.*;
 //import javax.persistence.*;
 
-import play.db.jpa.*;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 //@Entity
-public class User{
-//    @Id
+public class User {
+    //    @Id
 //    @GeneratedValue(strategy= GenerationType.AUTO)
     public long id;
     public String name;
 
     public String tweet;
 
-    public User( String name, String tweet) {
+    public User(String name, String tweet) {
         this.name = name;
         this.tweet = tweet;
     }
@@ -30,9 +22,10 @@ public class User{
         this.name = name;
         this.tweet = tweet;
     }
-    public User(){
 
-        }
+    public User() {
+
+    }
 
     public String toString() {
         return name;

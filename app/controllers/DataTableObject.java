@@ -5,20 +5,20 @@ import models.User;
 import java.util.List;
 
 public class DataTableObject {
-    int draw ;
-    int  recordsTotal;
+    int draw;
+    int recordsTotal;
 
-    int  recordsFiltered ;
+    int recordsFiltered;
 
     String search;
 
     List<User> data;
 
-    public DataTableObject(){
-draw =0;
-recordsTotal = 0;
-recordsFiltered = 0;
-search="";
+    public DataTableObject() {
+        draw = 0;
+        recordsTotal = 0;
+        recordsFiltered = 0;
+        search = "";
     }
 
     public void setSearch(String search) {

@@ -16,8 +16,7 @@ import java.util.List;
 public class UserQueryActor {
 
 
-
-    public DataTableObject listAllUsers(String search, int length, int start, int draw ){
+    public DataTableObject listAllUsers(String search, int length, int start, int draw) {
 
         int recordsFiltered = 0;
         List<User> users = new ArrayList<User>();
@@ -35,27 +34,27 @@ public class UserQueryActor {
 
         MongoCursor<Document> cursor = null;
         //find and filter
-        if(search.equals(null) || search.equals("") ){
+        if (search.equals(null) || search.equals("")) {
             System.out.println("null");
             cursor = collection.find().limit(length).skip(start).iterator();
-            recordsFiltered =  (int)collection.count();
-        }
-        else cursor = collection.find(Document.parse("{name: {$regex: \"" +search + "\"}}")).limit(length).skip(start).iterator();
+            recordsFiltered = (int) collection.count();
+        } else
+            cursor = collection.find(Document.parse("{name: {$regex: \"" + search + "\"}}")).limit(length).skip(start).iterator();
 
-        while(cursor.hasNext()){
+        while (cursor.hasNext()) {
 
             Document dbObject = cursor.next();
 
-            String id =   dbObject.get("_id")+"";
+            String id = dbObject.get("_id") + "";
             System.out.println("ID : " + id);
             String name = dbObject.get("name") + "";
             String tweet = dbObject.get("tweet") + "";
-            User user = new User( Long.parseLong(id), name, tweet);
+            User user = new User(Long.parseLong(id), name, tweet);
             users.add(user);
-            recordsFiltered ++;
+            recordsFiltered++;
         }
 
-        System.out.print(draw + " " + length + " " + start+ " " + " " + recordsFiltered + " " + search+" ,, "+ (int) collection.count());
+        System.out.print(draw + " " + length + " " + start + " " + " " + recordsFiltered + " " + search + " ,, " + (int) collection.count());
 
 
         //Datatabel
@@ -90,13 +89,12 @@ public class UserQueryActor {
         MongoCursor cursor = collection.find(query).iterator();
 
         JSONObject userNode = null;
-        if(cursor.hasNext())
-        {
+        if (cursor.hasNext()) {
             Document dbObject = (Document) cursor.next();
 
             String name = dbObject.get("name") + "";
             String tweet = dbObject.get("tweet") + "";
-            System.out.println( " Data " + id + " " + name + " " + tweet);
+            System.out.println(" Data " + id + " " + name + " " + tweet);
 //            user = new User(id, name, tweet);
             user.setId(id);
             user.setName(name);
