@@ -7,29 +7,29 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import controllers.DataTableObject;
+import dataaccess.MongoSingletonConnection;
 import org.bson.Document;
 import scala.util.parsing.json.JSONObject;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserQueryActor {
 
+    @Inject
+    MongoSingletonConnection connection = MongoSingletonConnection.getInstance();
 
     public DataTableObject listAllUsers(String search, int length, int start, int draw) {
 
         int recordsFiltered = 0;
         List<User> users = new ArrayList<User>();
 
-        //mongo DB
-        String server = "localhost";
-        int port = 27017;
-        // get mongodb connection
-        MongoClient client = new MongoClient(server, port);
-        //specify DB name
-        MongoDatabase myDB = client.getDatabase("Twitter");
-        //Specify collection name
+        MongoDatabase myDB = connection.getMongoDatabase();
+
         MongoCollection<Document> collection = myDB.getCollection("user");
+
 
 
         MongoCursor<Document> cursor = null;
@@ -49,11 +49,12 @@ public class UserQueryActor {
             System.out.println("ID : " + id);
             String name = dbObject.get("name") + "";
             String tweet = dbObject.get("tweet") + "";
-            User user = new User(Long.parseLong(id), name, tweet);
+            User user = new User(Integer.parseInt(id), name, tweet);
             users.add(user);
             recordsFiltered++;
         }
 
+        cursor.close();
         System.out.print(draw + " " + length + " " + start + " " + " " + recordsFiltered + " " + search + " ,, " + (int) collection.count());
 
 
@@ -72,14 +73,8 @@ public class UserQueryActor {
     public User getUser(int id) {
 
         User user = new User();
-        //mongo DB
-        String server = "localhost";
-        int port = 27017;
-        // get mongodb connection
-        MongoClient client = new MongoClient(server, port);
-        //specify DB name
-        MongoDatabase myDB = client.getDatabase("Twitter");
-        //Specify collection name
+        MongoDatabase myDB = connection.getMongoDatabase();
+
         MongoCollection<Document> collection = myDB.getCollection("user");
 
 //        MongoCursor<Document> cursor = null;
@@ -99,14 +94,9 @@ public class UserQueryActor {
             user.setId(id);
             user.setName(name);
             user.setTweet(tweet);
-//            user.add(user);
             System.out.println(user + "    ,,,,  " + user.toString());
-
-//            userNode = new JSONObject(user);
-
-//            System.out.println(" JSON " + userNode);
         }
-
+        cursor.close();
 
         return user;
 

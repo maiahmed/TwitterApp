@@ -7,6 +7,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.UpdateResult;
+import dataaccess.MongoSingletonConnection;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import play.data.FormFactory;
@@ -18,21 +19,16 @@ import static com.mongodb.client.model.Filters.eq;
 public class UserCommandActor {
 
     @Inject
-    FormFactory formFactory;
+//    MongoSingletonConnection connection = new MongoSingletonConnection();
+    MongoSingletonConnection connection = MongoSingletonConnection.getInstance();
 
-    public MongoCollection<Document> createDBConnection() {
-        String server = "localhost";
-        int port = 27017;
-        MongoClient client = new MongoClient(server, port);
-        MongoDatabase myDB = client.getDatabase("Twitter");
-        MongoCollection<Document> collection = myDB.getCollection("user");
-        return collection;
-
-    }
 
     public boolean addUser(User user) {
 
-        MongoCollection<Document> collection = createDBConnection();
+        MongoDatabase myDB = connection.getMongoDatabase();
+
+        MongoCollection<Document> collection = myDB.getCollection("user");
+
         Document document = new Document();
 
 
@@ -46,7 +42,6 @@ public class UserCommandActor {
         collection.insertOne(document);
 
         Object id = document.get("_id");
-
         System.out.println("RES : = " + id);
 
         if (!id.equals(null)) return true;
@@ -58,7 +53,9 @@ public class UserCommandActor {
     public int updateUser(JsonNode userJson, int id) {
 
         System.out.println("UPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEE " + userJson);
-        MongoCollection<Document> collection = createDBConnection();
+        MongoDatabase myDB = connection.getMongoDatabase();
+
+        MongoCollection<Document> collection = myDB.getCollection("user");
 
         User oldUser = new User();
 
@@ -69,7 +66,6 @@ public class UserCommandActor {
         System.out.println(" --- ana b update " + name + " " + tweet + " " + userJson.get(1).get("value"));
 
 
-        MongoCursor<Document> cursor = null;
         BasicDBObject query = new BasicDBObject();
         query.put("_id", id);
 

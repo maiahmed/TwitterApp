@@ -7,7 +7,7 @@ package models;
 public class User {
     //    @Id
 //    @GeneratedValue(strategy= GenerationType.AUTO)
-    public long id;
+    public int id;
     public String name;
 
     public String tweet;
@@ -17,7 +17,7 @@ public class User {
         this.tweet = tweet;
     }
 
-    public User(long id, String name, String tweet) {
+    public User(int id, String name, String tweet) {
         this.id = id;
         this.name = name;
         this.tweet = tweet;
@@ -31,7 +31,7 @@ public class User {
         return name;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
